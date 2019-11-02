@@ -18,6 +18,13 @@ class Patient(models.Model):
     Address
     Phone number
     Emergency contact ID
+    Are able to stand and walk
+Have any nausea under control
+Can ease your pain with pills instead of medicine you get through an IV
+Have normal breathing and blood pressure
+Think and respond as well as you did before the surgery
+Are able to pee and have a bowel movement
+
     '''
 
     #patient_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -31,9 +38,6 @@ class Patient(models.Model):
     phone_number = models.IntegerField(default=9999999999)
     illnesses = models.CharField(max_length=1000, default="Illness")
     patient_description = models.CharField(max_length=1000000, default="Illness")
-
-class SurveyResponses(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     stand_and_walk = models.CharField(max_length=1000, default="Yes or No")
     nausea = models.CharField(max_length=1000, default="Yes or No")
     pills_or_iv = models.CharField(max_length=1000, default="Pills or IV")
@@ -41,3 +45,4 @@ class SurveyResponses(models.Model):
     normal_bp = models.CharField(max_length=1000, default="Yes or No")
     peebility = models.CharField(max_length=1000, default="Yes or No")
     bowel_movement_ok = models.CharField(max_length=1000, default="Desc.")
+    
