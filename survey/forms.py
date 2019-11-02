@@ -5,7 +5,7 @@ from django.forms import formset_factory
 from django.forms.models import inlineformset_factory
 from .models import Patient
 
-class PatientForm(models.ModelForm):
+class PatientForm(forms.Form):
     patient_name = forms.CharField(
         label='Patient Name:',
         max_length=200,
