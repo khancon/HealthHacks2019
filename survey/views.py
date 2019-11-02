@@ -13,8 +13,29 @@ from django.http import HttpResponse
 from .models import Patient
 from .forms import PatientForm
 from django.forms import modelformset_factory
+import csv
+from django.utils.encoding import smart_str
 
+#Take data from django model Patient and export to csv file for processing in the Health Hacks pipeline
+def export_csv(modeladmin, request, queryset):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=mymodel.csv'
+    writer = csv.writer(response, csv.excel)
+    response.write(u'\ufeff'.encode('utf8')) # BOM (optional...Excel needs it to open UTF-8 file properly)
+    writer.writerow([
+        smart_str(u"ID"),
+        smart_str(u"Title"),
+        smart_str(u"Description"),
+    ])
+    for obj in queryset:
+        writer.writerow([
+            smart_str(obj.pk),
+            smart_str(obj.title),
+            smart_str(obj.description),
+        ])
+    return response
 
+#Show form for patient/doctors to input patient information daily that will be saved in the django model Patient
 def index(request):
     if request.method == 'GET':
         form = PatientForm()
